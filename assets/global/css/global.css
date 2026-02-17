@@ -56,3 +56,16 @@
     font-size:28px;
     line-height:28px;
 }
+.float-whatsapp-button,
+.float-whatsapp-button:is(:hover,:focus,:visited,:active){
+    position: fixed;
+    bottom: 90px;
+    right: 30px;
+    width: 60px;
+    height: 60px;
+    color: #fff;
+    background: #25d366;
+    border-radius: 100%;
+    z-index: 9999;
+    padding: 0.4rem;
+}
