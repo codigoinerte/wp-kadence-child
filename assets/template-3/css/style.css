@@ -3666,11 +3666,11 @@ a:hover {
 
 .heart {
 	color: var(--color-teal);
-	animation: pulse 1.5s ease-in-out infinite;
+	animation: pulse-heart 1.5s ease-in-out infinite;
 	display: inline-block;
 }
 
-@keyframes pulse {
+@keyframes pulse-heart {
 	0%,
 	100% {
 		transform: scale(1);
@@ -5158,7 +5158,7 @@ a:hover {
 	height: 8px;
 	background-color: var(--color-teal);
 	border-radius: 50%;
-	animation: pulse 2s infinite;
+	animation: pulse-badge-dot 2s infinite;
 }
 
 .hero-heading {
@@ -5398,7 +5398,7 @@ a:hover {
 	}
 }
 
-@keyframes pulse {
+@keyframes pulse-badge-dot {
 	0% {
 		box-shadow: 0 0 0 0 rgba(20, 184, 166, 0.4);
 	}
@@ -6896,10 +6896,10 @@ a:hover {
 	background-color: #22c55e;
 	border-radius: 50%;
 	box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.2);
-	animation: pulse 2s infinite;
+	animation: pulse-status-dot 2s infinite;
 }
 
-@keyframes pulse {
+@keyframes pulse-status-dot {
 	0% {
 		box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.4);
 	}

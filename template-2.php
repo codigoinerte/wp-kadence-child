@@ -95,7 +95,7 @@ $warning_content = rwmb_meta('warning_content') ?: 'El espacio es limitado y est
             <div class="flex__item--md-12 flex__item--xs-12">
             <div class="widget" data-widget-id="f47b9298-43ad-ac67-7087-933ccc6e9197" style="margin-bottom:0px;">
               <div class="lp-button-react-wrapper css-1yltisf" data-widget-type="LpButtonReact">
-              <a class="lp-button-react w-f47b9298-43ad-ac67-7087-933ccc6e9197 lp-button-react--full is-bold lp-button-react--small lp-button-react--line font-scale-6 line-height-scale-6 css-dnk8ig whatsapp-button pulse" contenteditable="false" data-link-type="leadbox" data-widget-link="true" href="<?php echo esc_url($hero_whatsapp_link); ?>" target="_top">
+              <a class="lp-button-react w-f47b9298-43ad-ac67-7087-933ccc6e9197 lp-button-react--full is-bold lp-button-react--small lp-button-react--line font-scale-6 line-height-scale-6 css-dnk8ig whatsapp-button animate__animated animate__pulse animate__infinite infinite" contenteditable="false" data-link-type="leadbox" data-widget-link="true" href="<?php echo esc_url($hero_whatsapp_link); ?>" target="_top">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" width="30" height="30" class="css-1h3hmed" style="margin-right: 8px;">
                     <path 
                       d="M476.9 161.1C435 119.1 379.2 96 319.9 96C197.5 96 97.9 195.6 97.9 318C97.9 357.1 108.1 395.3 127.5 429L96 544L213.7 513.1C246.1 530.8 282.6 540.1 319.8 540.1L319.9 540.1C442.2 540.1 544 440.5 544 318.1C544 258.8 518.8 203.1 476.9 161.1zM319.9 502.7C286.7 502.7 254.2 493.8 225.9 477L219.2 473L149.4 491.3L168 423.2L163.6 416.2C145.1 386.8 135.4 352.9 135.4 318C135.4 216.3 218.2 133.5 320 133.5C369.3 133.5 415.6 152.7 450.4 187.6C485.2 222.5 506.6 268.8 506.5 318.1C506.5 419.9 421.6 502.7 319.9 502.7zM421.1 364.5C415.6 361.7 388.3 348.3 383.2 346.5C378.1 344.6 374.4 343.7 370.7 349.3C367 354.9 356.4 367.3 353.1 371.1C349.9 374.8 346.6 375.3 341.1 372.5C308.5 356.2 287.1 343.4 265.6 306.5C259.9 296.7 271.3 297.4 281.9 276.2C283.7 272.5 282.8 269.3 281.4 266.5C280 263.7 268.9 236.4 264.3 225.3C259.8 214.5 255.2 216 251.8 215.8C248.6 215.6 244.9 215.6 241.2 215.6C237.5 215.6 231.5 217 226.4 222.5C221.3 228.1 207 241.5 207 268.8C207 296.1 226.9 322.5 229.6 326.2C232.4 329.9 268.7 385.9 324.4 410C359.6 425.2 373.4 426.5 391 423.9C401.7 422.3 423.8 410.5 428.4 397.5C433 384.5 433 373.4 431.6 371.1C430.3 368.6 426.6 367.2 421.1 364.5z" 
@@ -186,7 +186,7 @@ $warning_content = rwmb_meta('warning_content') ?: 'El espacio es limitado y est
             <div class="flex__item--md-12 flex__item--xs-12">
             <div class="widget" data-widget-id="ab76426d-bab4-3238-4f4b-e676f145f639">
               <div class="lp-button-react-wrapper css-1yltisf" data-widget-type="LpButtonReact">
-              <a class="lp-button-react w-ab76426d-bab4-3238-4f4b-e676f145f639 lp-button-react--full is-bold lp-button-react--medium lp-button-react--flat lp-btn-flat font-scale-7 line-height-scale-7 css-1cgplql" contenteditable="false" data-link-type="leadbox" data-widget-link="true" href="<?php echo esc_url($hero_button_link); ?>" target="_top">
+              <a class="lp-button-react w-ab76426d-bab4-3238-4f4b-e676f145f639 lp-button-react--full is-bold lp-button-react--medium lp-button-react--flat lp-btn-flat font-scale-7 line-height-scale-7 css-1cgplql animate__animated animate__pulse animate__infinite infinite" contenteditable="false" data-link-type="leadbox" data-widget-link="true" href="<?php echo esc_url($hero_button_link); ?>" target="_top">
                 <?php echo esc_html($hero_button_label); ?>
               </a>
               </div>
@@ -466,7 +466,7 @@ $warning_content = rwmb_meta('warning_content') ?: 'El espacio es limitado y est
             <div class="flex__item--md-12 flex__item--xs-12">
               <div class="widget" data-widget-id="3e07e473-8553-10f5-9c1a-3a8769fb5f6d">
               <div class="lp-button-react-wrapper css-1yltisf" data-widget-type="LpButtonReact">
-                <a class="lp-button-react w-3e07e473-8553-10f5-9c1a-3a8769fb5f6d lp-button-react--full is-bold lp-button-react--medium lp-button-react--line font-scale-6 line-height-scale-6 css-frkf8a" contenteditable="false" data-link-type="leadbox" data-widget-link="true" href="<?php echo esc_url($detalles_button_link); ?>" target="_top">
+                <a class="lp-button-react w-3e07e473-8553-10f5-9c1a-3a8769fb5f6d lp-button-react--full is-bold lp-button-react--medium lp-button-react--line font-scale-6 line-height-scale-6 css-frkf8a animate__animated animate__pulse animate__infinite infinite" contenteditable="false" data-link-type="leadbox" data-widget-link="true" href="<?php echo esc_url($detalles_button_link); ?>" target="_top">
                 <?php echo esc_html($detalles_button_label); ?>
                 </a>
               </div>
@@ -574,7 +574,7 @@ $warning_content = rwmb_meta('warning_content') ?: 'El espacio es limitado y est
             <div class="flex__item--md-12 flex__item--xs-12">
             <div class="widget" data-widget-id="a8723aa3-33a5-333b-4fd9-21b7e5bb9b1e">
               <div class="lp-button-react-wrapper css-15ztr6m" data-widget-type="LpButtonReact">
-              <a class="lp-button-react w-a8723aa3-33a5-333b-4fd9-21b7e5bb9b1e is-bold lp-button-react--medium lp-button-react--line font-scale-6 line-height-scale-6 css-1yfajxp" contenteditable="false" data-link-type="leadbox" data-widget-link="true" href="<?php echo esc_url($exponente_button_link); ?>" target="_top">
+              <a class="lp-button-react w-a8723aa3-33a5-333b-4fd9-21b7e5bb9b1e is-bold lp-button-react--medium lp-button-react--line font-scale-6 line-height-scale-6 css-1yfajxp animate__animated animate__pulse animate__infinite infinite" contenteditable="false" data-link-type="leadbox" data-widget-link="true" href="<?php echo esc_url($exponente_button_link); ?>" target="_top">
                 <?php echo esc_html($exponente_button_label); ?>
               </a>
               </div>
@@ -653,7 +653,7 @@ $warning_content = rwmb_meta('warning_content') ?: 'El espacio es limitado y est
             <div class="flex__item--md-12 flex__item--xs-12">
             <div class="widget" data-widget-id="1b1a8aec-ae2b-b1d1-60fb-30f8606afe2f">
               <div class="lp-button-react-wrapper css-15ztr6m" data-widget-type="LpButtonReact">
-              <a class="lp-button-react w-1b1a8aec-ae2b-b1d1-60fb-30f8606afe2f is-bold lp-button-react--medium lp-button-react--flat lp-btn-flat font-scale-7 line-height-scale-7 css-10jd8op" contenteditable="false" data-link-type="leadbox" data-widget-link="true" href="<?php echo esc_url($temario_button_link); ?>" target="_top">
+              <a class="lp-button-react w-1b1a8aec-ae2b-b1d1-60fb-30f8606afe2f is-bold lp-button-react--medium lp-button-react--flat lp-btn-flat font-scale-7 line-height-scale-7 css-10jd8op animate__animated animate__pulse animate__infinite infinite" contenteditable="false" data-link-type="leadbox" data-widget-link="true" href="<?php echo esc_url($temario_button_link); ?>" target="_top">
                 <?php echo esc_html($temario_button_label); ?>
               </a>
               </div>

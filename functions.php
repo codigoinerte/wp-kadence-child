@@ -7,6 +7,7 @@ add_action( 'wp_enqueue_scripts', 'kadence_child_enqueue_styles' );
 
 function cargar_estilos_personalizados() {
     if ( is_page_template('template-1.php') ) {
+        wp_enqueue_style( 'template-1-animate-css', 'https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css', array(), null );
         wp_enqueue_style( 'global.css', get_stylesheet_directory_uri() . '/assets/global/css/global.css' );
         wp_enqueue_style( 'bootstrap-css', get_stylesheet_directory_uri() . '/assets/template-1/css/bootstrap.min.css' );
         wp_enqueue_style( 'lineicons-css', get_stylesheet_directory_uri() . '/assets/template-1/css/lineicons.css' );
@@ -16,6 +17,7 @@ function cargar_estilos_personalizados() {
     }
 
     if ( is_page_template('template-2.php') ) {
+        wp_enqueue_style( 'template-2-animate-css', 'https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css', array(), null );
         wp_enqueue_style( 'template-2-google-fonts', 'https://fonts.googleapis.com/css?family=Poppins:300,400,500,700|Roboto+Condensed:300,400,500,700|Roboto:300,400,500,700', array(), null );
         wp_enqueue_style( 'global.css', get_stylesheet_directory_uri() . '/assets/global/css/global.css' );
         wp_enqueue_style( 'all.min.css', get_stylesheet_directory_uri() . '/assets/template-2/css/all.min.css' );
@@ -25,6 +27,7 @@ function cargar_estilos_personalizados() {
 
     if ( is_page_template('template-3.php') ) {  
         wp_enqueue_style( 'template-3-google-fonts', 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap', array(), null );
+        wp_enqueue_style( 'template-3-animate-css', 'https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css', array(), null );
         wp_enqueue_style( 'global.css', get_stylesheet_directory_uri() . '/assets/global/css/global.css' );
         wp_enqueue_style( 'template-3.css', get_stylesheet_directory_uri() . '/assets/template-3/css/template-3.css' );
         wp_enqueue_style( 'style.css', get_stylesheet_directory_uri() . '/assets/template-3/css/style.css' );
