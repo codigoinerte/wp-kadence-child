@@ -1937,3 +1937,9 @@ p {
   width: 35px;
   color: #fff;
 }
+
+@media(max-width:767px){
+  .navbar-area.navbar-nine{
+    position: relative;
+  }
+}
