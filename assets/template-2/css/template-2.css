@@ -71,3 +71,7 @@
 .warning-message-content .widget{
     margin:0px;
 }
+.float-whatsapp-button,
+.float-whatsapp-button:is(:hover,:focus,:visited,:active){
+    bottom: 30px;
+}

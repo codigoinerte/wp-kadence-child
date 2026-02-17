@@ -58,3 +58,8 @@ div:has(.whatsapp-benefits-button){
     color: var(--color-navy);
     box-shadow: none;
 }
+
+.float-whatsapp-button,
+.float-whatsapp-button:is(:hover,:focus,:visited,:active){
+    bottom: 30px;
+}
