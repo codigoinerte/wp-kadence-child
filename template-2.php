@@ -6,6 +6,9 @@ Template Post Type: page
 
 get_header("custom"); 
 
+// Obtener valores de Meta Box - Redes Sociales (Global)
+$instagram = rwmb_meta('instagram') ?: '#';
+$facebook = rwmb_meta('facebook') ?: '#';
 
 // Obtener valores de Meta Box - Header/Cabecera
 $hero_whatsapp_link = rwmb_meta('hero_whatsapp_link') ?: 'https://wa.me/0000000000';

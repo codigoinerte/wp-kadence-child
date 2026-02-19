@@ -6,6 +6,10 @@ Template Post Type: page
 
 get_header('custom'); 
 
+// Obtener valores de Meta Box - Redes Sociales (Global)
+$instagram = rwmb_meta('instagram') ?: '#';
+$facebook = rwmb_meta('facebook') ?: '#';
+
 // Obtener valores de Meta Box
 $hero_title = rwmb_meta('hero_title') ?: 'Corporate & Business Site Template by Ayro UI.';
 $hero_logo = rwmb_meta('hero_logo') ?: 'Logo Name';

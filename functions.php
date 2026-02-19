@@ -1134,3 +1134,40 @@ function home_register_meta_boxes($meta_boxes) {
 
     return $meta_boxes;
 }
+
+// ============================================
+// META BOX - REDES SOCIALES (GLOBAL)
+// ============================================
+
+add_filter( 'rwmb_meta_boxes', 'global_social_media_register_meta_boxes' );
+
+function global_social_media_register_meta_boxes( $meta_boxes ) {
+    
+    $meta_boxes[] = [
+        'title'      => 'Redes Sociales',
+        'id'         => 'global_social_media',
+        'post_types' => ['page'],
+        'context'    => 'normal',
+        'priority'   => 'high',
+        'fields'     => [
+            [
+                'name'        => 'Instagram URL',
+                'id'          => 'instagram',
+                'type'        => 'url',
+                'size'        => 60,
+                'placeholder' => 'https://instagram.com/tu_usuario',
+                'desc'        => 'URL completa de tu perfil de Instagram. Se aplica a todos los templates.',
+            ],
+            [
+                'name'        => 'Facebook URL',
+                'id'          => 'facebook',
+                'type'        => 'url',
+                'size'        => 60,
+                'placeholder' => 'https://facebook.com/tu_pagina',
+                'desc'        => 'URL completa de tu página de Facebook. Se aplica a todos los templates.',
+            ],
+        ],
+    ];
+
+    return $meta_boxes;
+}

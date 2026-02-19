@@ -6,6 +6,10 @@ Template Post Type: page
 
 get_header("custom");
 
+// Variables de Meta Box - Redes Sociales (Global)
+$instagram = rwmb_meta('instagram') ?: '#';
+$facebook = rwmb_meta('facebook') ?: '#';
+
 // Variables de Meta Box para Hero Section
 $hero_heading           = rwmb_meta('hero_heading') ?: 'Master Your Money with';
 $hero_heading_highlight = rwmb_meta('hero_heading_highlight') ?: 'AI Intelligence';
