@@ -1938,6 +1938,15 @@ p {
   color: #fff;
 }
 
+.float-instagram-button,
+.float-instagram-button:is(:hover,:focus,:visited,:active){
+  bottom: 165px;
+}
+.float-facebook-button,
+.float-facebook-button:is(:hover,:focus,:visited,:active){
+  bottom: 240px;
+}
+
 @media(max-width:767px){
   .navbar-area.navbar-nine{
     position: relative;

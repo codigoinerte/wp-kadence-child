@@ -69,3 +69,50 @@
     z-index: 9999;
     padding: 0.4rem;
 }
+.float-instagram-button,
+.float-instagram-button:is(:hover,:focus,:visited,:active){
+    position: fixed;
+    bottom: 110px;
+    right: 30px;
+    width: 60px;
+    height: 60px;
+    color: #fff;
+    background: #833ab4;
+    background: linear-gradient(
+        to right,
+        #833ab4,#fd1d1d,#fcb045
+    );
+    border-radius: 100%;
+    z-index: 9999;
+    padding: 0.4rem;
+    display:flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.float-facebook-button,
+.float-facebook-button:is(:hover,:focus,:visited,:active){
+    position: fixed;
+    bottom: 190px;
+    right: 30px;
+    width: 60px;
+    height: 60px;
+    color: #fff;
+    background: #3b5998;
+    border-radius: 100%;
+    z-index: 9999;
+    padding: 0.4rem;
+    display:flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+.float-instagram-button svg,
+.float-facebook-button svg{
+    width: 25px;
+}
+
+.float-facebook-button svg{
+    width: 18px;
+}
