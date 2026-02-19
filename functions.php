@@ -1,5 +1,38 @@
 <?php
 
+// ============================================
+// CONFIGURACIÓN DE VERSIONES DE ASSETS
+// ============================================
+
+// Versión general del tema - Cambiar aquí para actualizar todos los assets
+define('KADENCE_CHILD_VERSION', '1.0.1');
+
+/**
+ * Obtiene la versión para un asset (CSS o JS)
+ * 
+ * @param string $file_path Ruta relativa del archivo desde la carpeta del tema
+ * @param bool $use_filemtime Si es true, usa la fecha de modificación del archivo como versión (cache busting automático)
+ * @return string|null Versión del asset o null
+ */
+function kadence_child_get_asset_version($file_path = '', $use_filemtime = true) {
+    if (empty($file_path)) {
+        return KADENCE_CHILD_VERSION;
+    }
+    
+    if ($use_filemtime) {
+        $full_path = get_stylesheet_directory() . $file_path;
+        if (file_exists($full_path)) {
+            return filemtime($full_path);
+        }
+    }
+    
+    return KADENCE_CHILD_VERSION;
+}
+
+// ============================================
+// ENQUEUE DE ESTILOS Y SCRIPTS
+// ============================================
+
 function kadence_child_enqueue_styles() {
     wp_enqueue_style( 'parent-style', get_template_directory_uri() . '/style.css' );
 }
@@ -7,63 +40,81 @@ add_action( 'wp_enqueue_scripts', 'kadence_child_enqueue_styles' );
 
 function cargar_estilos_personalizados() {
     if ( is_page_template('template-1.php') ) {
+        // Estilos externos (CDN) - sin versión para usar la del CDN
         wp_enqueue_style( 'template-1-animate-css', 'https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css', array(), null );
-        wp_enqueue_style( 'global.css', get_stylesheet_directory_uri() . '/assets/global/css/global.css' );
-        wp_enqueue_style( 'bootstrap-css', get_stylesheet_directory_uri() . '/assets/template-1/css/bootstrap.min.css' );
-        wp_enqueue_style( 'lineicons-css', get_stylesheet_directory_uri() . '/assets/template-1/css/lineicons.css' );
-        wp_enqueue_style( 'tiny-slider-css', get_stylesheet_directory_uri() . '/assets/template-1/css/tiny-slider.css' );
-        wp_enqueue_style( 'glightbox-css', get_stylesheet_directory_uri() . '/assets/template-1/css/glightbox.min.css' );
-        wp_enqueue_style( 'template-1-style', get_stylesheet_directory_uri() . '/assets/template-1/css/style.css' );
+        
+        // Estilos locales - con versión automática basada en fecha de modificación
+        wp_enqueue_style( 'global.css', get_stylesheet_directory_uri() . '/assets/global/css/global.css', array(), kadence_child_get_asset_version('/assets/global/css/global.css') );
+        wp_enqueue_style( 'bootstrap-css', get_stylesheet_directory_uri() . '/assets/template-1/css/bootstrap.min.css', array(), kadence_child_get_asset_version('/assets/template-1/css/bootstrap.min.css') );
+        wp_enqueue_style( 'lineicons-css', get_stylesheet_directory_uri() . '/assets/template-1/css/lineicons.css', array(), kadence_child_get_asset_version('/assets/template-1/css/lineicons.css') );
+        wp_enqueue_style( 'tiny-slider-css', get_stylesheet_directory_uri() . '/assets/template-1/css/tiny-slider.css', array(), kadence_child_get_asset_version('/assets/template-1/css/tiny-slider.css') );
+        wp_enqueue_style( 'glightbox-css', get_stylesheet_directory_uri() . '/assets/template-1/css/glightbox.min.css', array(), kadence_child_get_asset_version('/assets/template-1/css/glightbox.min.css') );
+        wp_enqueue_style( 'template-1-style', get_stylesheet_directory_uri() . '/assets/template-1/css/style.css', array(), kadence_child_get_asset_version('/assets/template-1/css/style.css') );
     }
 
     if ( is_page_template('template-2.php') ) {
+        // Estilos externos (CDN) - sin versión
         wp_enqueue_style( 'template-2-animate-css', 'https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css', array(), null );
         wp_enqueue_style( 'template-2-google-fonts', 'https://fonts.googleapis.com/css?family=Poppins:300,400,500,700|Roboto+Condensed:300,400,500,700|Roboto:300,400,500,700', array(), null );
-        wp_enqueue_style( 'global.css', get_stylesheet_directory_uri() . '/assets/global/css/global.css' );
-        wp_enqueue_style( 'all.min.css', get_stylesheet_directory_uri() . '/assets/template-2/css/all.min.css' );
-        wp_enqueue_style( 'style.css', get_stylesheet_directory_uri() . '/assets/template-2/css/style.css' );
-        wp_enqueue_style( 'template-2.css', get_stylesheet_directory_uri() . '/assets/template-2/css/template-2.css' );
+        
+        // Estilos locales - con versión automática
+        wp_enqueue_style( 'global.css', get_stylesheet_directory_uri() . '/assets/global/css/global.css', array(), kadence_child_get_asset_version('/assets/global/css/global.css') );
+        wp_enqueue_style( 'all.min.css', get_stylesheet_directory_uri() . '/assets/template-2/css/all.min.css', array(), kadence_child_get_asset_version('/assets/template-2/css/all.min.css') );
+        wp_enqueue_style( 'style.css', get_stylesheet_directory_uri() . '/assets/template-2/css/style.css', array(), kadence_child_get_asset_version('/assets/template-2/css/style.css') );
+        wp_enqueue_style( 'template-2.css', get_stylesheet_directory_uri() . '/assets/template-2/css/template-2.css', array(), kadence_child_get_asset_version('/assets/template-2/css/template-2.css') );
     }
 
-    if ( is_page_template('template-3.php') ) {  
+    if ( is_page_template('template-3.php') ) {
+        // Estilos externos (CDN) - sin versión
         wp_enqueue_style( 'template-3-google-fonts', 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap', array(), null );
         wp_enqueue_style( 'template-3-animate-css', 'https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css', array(), null );
-        wp_enqueue_style( 'global.css', get_stylesheet_directory_uri() . '/assets/global/css/global.css' );
-        wp_enqueue_style( 'template-3.css', get_stylesheet_directory_uri() . '/assets/template-3/css/template-3.css' );
-        wp_enqueue_style( 'style.css', get_stylesheet_directory_uri() . '/assets/template-3/css/style.css' );
+        
+        // Estilos locales - con versión automática
+        wp_enqueue_style( 'global.css', get_stylesheet_directory_uri() . '/assets/global/css/global.css', array(), kadence_child_get_asset_version('/assets/global/css/global.css') );
+        wp_enqueue_style( 'template-3.css', get_stylesheet_directory_uri() . '/assets/template-3/css/template-3.css', array(), kadence_child_get_asset_version('/assets/template-3/css/template-3.css') );
+        wp_enqueue_style( 'style.css', get_stylesheet_directory_uri() . '/assets/template-3/css/style.css', array(), kadence_child_get_asset_version('/assets/template-3/css/style.css') );
     }
 
     if ( is_page_template('home.php') ) {
-        wp_enqueue_style( 'bootstrap-icons.min.css', get_stylesheet_directory_uri() . '/assets/home/css/bootstrap-icons.min.css' );
-        wp_enqueue_style( 'home-style', get_stylesheet_directory_uri() . '/assets/home/css/style.css' );
-        wp_enqueue_style( 'font-awesome.min.css', get_stylesheet_directory_uri() . '/assets/home/css/font-awesome.min.css' );
-        wp_enqueue_style( 'owl.carousel.min.css', get_stylesheet_directory_uri() . '/assets/home/css/owl.carousel.min.css' );
-        wp_enqueue_style( 'owl.theme.default.min.css', get_stylesheet_directory_uri() . '/assets/home/css/owl.theme.default.min.css' );
+        // Estilos locales - con versión automática
+        wp_enqueue_style( 'bootstrap-icons.min.css', get_stylesheet_directory_uri() . '/assets/home/css/bootstrap-icons.min.css', array(), kadence_child_get_asset_version('/assets/home/css/bootstrap-icons.min.css') );
+        wp_enqueue_style( 'home-style', get_stylesheet_directory_uri() . '/assets/home/css/style.css', array(), kadence_child_get_asset_version('/assets/home/css/style.css') );
+        wp_enqueue_style( 'font-awesome.min.css', get_stylesheet_directory_uri() . '/assets/home/css/font-awesome.min.css', array(), kadence_child_get_asset_version('/assets/home/css/font-awesome.min.css') );
+        wp_enqueue_style( 'owl.carousel.min.css', get_stylesheet_directory_uri() . '/assets/home/css/owl.carousel.min.css', array(), kadence_child_get_asset_version('/assets/home/css/owl.carousel.min.css') );
+        wp_enqueue_style( 'owl.theme.default.min.css', get_stylesheet_directory_uri() . '/assets/home/css/owl.theme.default.min.css', array(), kadence_child_get_asset_version('/assets/home/css/owl.theme.default.min.css') );
     }
 }
 add_action('wp_enqueue_scripts', 'cargar_estilos_personalizados');
 
 function cargar_javascript_personalizado() {
     if ( is_page_template('template-1.php') ) {
+        // Scripts externos (CDN) - con su propia versión
         wp_enqueue_script( 'tailwindcss-browser', 'https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4', array(), '4.0.0', false );
-        wp_enqueue_script( 'bootstrap-js', get_stylesheet_directory_uri() . '/assets/template-1/js/bootstrap.bundle.min.js', array(), '1.0.0', true );
-        wp_enqueue_script( 'glightbox-js', get_stylesheet_directory_uri() . '/assets/template-1/js/glightbox.min.js', array(), '1.0.0', true );
-        wp_enqueue_script( 'tiny-slider-js', get_stylesheet_directory_uri() . '/assets/template-1/js/tiny-slider.js', array(), '1.0.0', true );
+        
+        // Scripts locales - con versión automática basada en fecha de modificación
+        wp_enqueue_script( 'bootstrap-js', get_stylesheet_directory_uri() . '/assets/template-1/js/bootstrap.bundle.min.js', array(), kadence_child_get_asset_version('/assets/template-1/js/bootstrap.bundle.min.js'), true );
+        wp_enqueue_script( 'glightbox-js', get_stylesheet_directory_uri() . '/assets/template-1/js/glightbox.min.js', array(), kadence_child_get_asset_version('/assets/template-1/js/glightbox.min.js'), true );
+        wp_enqueue_script( 'tiny-slider-js', get_stylesheet_directory_uri() . '/assets/template-1/js/tiny-slider.js', array(), kadence_child_get_asset_version('/assets/template-1/js/tiny-slider.js'), true );
     }
 
     if ( is_page_template('template-2.php') ) {
+        // Scripts externos (CDN) - con su propia versión
         wp_enqueue_script( 'tailwindcss-browser', 'https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4', array(), '4.0.0', false );
     }
 
     if ( is_page_template('template-3.php') ) {
+        // Scripts externos (CDN) - con su propia versión
         wp_enqueue_script( 'tailwindcss-browser', 'https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4', array(), '4.0.0', false );
-        wp_enqueue_script( 'template-3-script', get_stylesheet_directory_uri() . '/assets/template-3/js/script.js', array(), '1.0.0', true );
+        
+        // Scripts locales - con versión automática
+        wp_enqueue_script( 'template-3-script', get_stylesheet_directory_uri() . '/assets/template-3/js/script.js', array(), kadence_child_get_asset_version('/assets/template-3/js/script.js'), true );
     }
 
     if ( is_page_template('home.php') ) {
-        wp_enqueue_script( 'jquery.min.js', get_stylesheet_directory_uri() . '/assets/home/js/jquery.min.js', array(), '1.0.0', true );
-        wp_enqueue_script( 'owl.carousel.min.js', get_stylesheet_directory_uri() . '/assets/home/js/owl.carousel.min.js', array(), '1.0.0', true );
-        wp_enqueue_script( 'main.js', get_stylesheet_directory_uri() . '/assets/home/js/main.js', array(), '1.0.0', true );
+        // Scripts locales - con versión automática
+        wp_enqueue_script( 'jquery.min.js', get_stylesheet_directory_uri() . '/assets/home/js/jquery.min.js', array(), kadence_child_get_asset_version('/assets/home/js/jquery.min.js'), true );
+        wp_enqueue_script( 'owl.carousel.min.js', get_stylesheet_directory_uri() . '/assets/home/js/owl.carousel.min.js', array(), kadence_child_get_asset_version('/assets/home/js/owl.carousel.min.js'), true );
+        wp_enqueue_script( 'main.js', get_stylesheet_directory_uri() . '/assets/home/js/main.js', array(), kadence_child_get_asset_version('/assets/home/js/main.js'), true );
     }
 }
 add_action('wp_enqueue_scripts', 'cargar_javascript_personalizado');
