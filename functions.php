@@ -417,6 +417,36 @@ function template1_register_meta_boxes( $meta_boxes ) {
         ],
     ];
 
+    // VIDEO SECTION
+    $meta_boxes[] = [
+        'title'      => '🎥 Video Section',
+        'id'         => 'video_section',
+        'post_types' => ['page'],
+        'context'    => 'normal',
+        'priority'   => 'high',
+        'fields'     => [
+            [
+                'name' => 'Título de la Sección',
+                'id'   => 'video_title_section',
+                'type' => 'text',
+                'std'  => 'Mira nuestro video',
+                'size' => 100,
+                'desc' => 'Título que aparecerá encima del video.',
+            ],
+            [
+                'name' => 'URL del Video',
+                'id'   => 'video_url',
+                'type' => 'url',
+                'std'  => '',
+                'size' => 100,
+                'desc' => 'URL del video de YouTube (formato embed). Ejemplo: https://www.youtube.com/embed/VIDEO_ID. Dejar vacío para ocultar la sección.',
+            ],
+        ],
+        'include' => [
+            'page_template' => ['template-1.php'],
+        ],
+    ];
+
     return $meta_boxes;
 }
 
