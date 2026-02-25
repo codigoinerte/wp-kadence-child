@@ -1217,6 +1217,14 @@ function global_social_media_register_meta_boxes( $meta_boxes ) {
                 'placeholder' => 'https://facebook.com/tu_pagina',
                 'desc'        => 'URL completa de tu página de Facebook. Se aplica a todos los templates.',
             ],
+            [
+                'name'        => 'WhatsApp URL',
+                'id'          => 'float_whatsapp_link',
+                'type'        => 'url',
+                'size'        => 60,
+                'placeholder' => 'https://wa.me/0000000000',
+                'desc'        => 'URL completa del enlace de WhatsApp para el botón flotante. Se aplica a todos los templates.',
+            ],
         ],
     ];
 
