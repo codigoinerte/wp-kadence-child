@@ -43,6 +43,7 @@ $call_action_link = rwmb_meta('call_action_link') ?: $hero_whatsapp_link;
 $call_action_label = rwmb_meta('call_action_label') ?: $hero_whatsapp_label;
 
 // Exponente Section
+$exponente_show = rwmb_meta('exponente_show');
 $exponente_title = rwmb_meta('exponente_title') ?: 'Exponente';
 $exponente_images_raw = rwmb_meta('exponente_images', ['size' => 'full']);
 $exponente_names_raw = rwmb_meta('exponente_names');
@@ -620,6 +621,7 @@ $first_active_tab = !empty($active_tabs) ? $active_tabs[0] : 0;
   <!-- ===== service-area end ===== -->
 
   <!-- Start Latest News Area -->
+  <?php if ($exponente_show) : ?>
   <div id="exponente" class="latest-news-area section">
     <!--======  Start Section Title Five ======-->
     <div class="section-title-five">
@@ -707,6 +709,7 @@ $first_active_tab = !empty($active_tabs) ? $active_tabs[0] : 0;
       </div>
     </div>
   </div>
+  <?php endif; ?>
   <!-- End Latest News Area -->
 
   <section id="call-action" class="call-action">

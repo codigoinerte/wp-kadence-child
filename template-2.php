@@ -34,6 +34,7 @@ $detalles_button_label = rwmb_meta('detalles_button_label') ?: 'GUARDAR MI ASIEN
 $detalles_button_link = rwmb_meta('detalles_button_link') ?: '#';
 
 // Obtener valores de Meta Box - Detalles del Exponente
+$exponente_show = rwmb_meta('exponente_show');
 $exponente_title = rwmb_meta('exponente_title') ?: 'Mejores prácticas de 7+ años de crecimiento rápido';
 $exponente_content = rwmb_meta('exponente_content') ?: '';
 $exponente_image_data = rwmb_meta('exponente_image', ['size' => 'full']);
@@ -488,6 +489,7 @@ $warning_content = rwmb_meta('warning_content') ?: 'El espacio es limitado y est
   </section>
 
   <!-- detalles del exponente -->
+  <?php if ($exponente_show) : ?>
   <section class="section css-hfzike" data-guid="8526bb74-b502-e90b-8363-5d9270b5c8ce">
   <div class="container" id="cta-1">
     <div class="layout flex flex--12" data-guid="a2e5059f-99ca-61dd-45b2-652d505eb986">
@@ -594,6 +596,7 @@ $warning_content = rwmb_meta('warning_content') ?: 'El espacio es limitado y est
     </div>
   </div>
   </section>
+  <?php endif; ?>
 
   <!-- temario del webinar -->
   <section class="section css-fzn3wk" data-guid="b4ed6c1d-8345-a2ed-b62c-ccf6b4690e4a">

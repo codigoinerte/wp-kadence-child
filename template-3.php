@@ -76,6 +76,7 @@ if (empty($temario_items)) {
 }
 
 // Variables de Meta Box para Expositores Section
+$expositores_show = rwmb_meta('expositores_show');
 $expositores_title = rwmb_meta('expositores_title') ?: 'Nuestros expositores';
 
 // Leer los arrays separados
@@ -392,6 +393,7 @@ if (empty($expositores_list)) {
 
 
 		<!-- Expositores Section -->
+		<?php if ($expositores_show) : ?>
 		<section class="social-proof-section" id="testimonials">
 			<div class="container">
 				<div class="social-proof-header">
@@ -437,6 +439,7 @@ if (empty($expositores_list)) {
 
 			</div>
 		</section>
+		<?php endif; ?>
 
 		<!-- Footer (Redesigned) -->
 		<footer class="modern-footer">

@@ -334,6 +334,13 @@ function template1_register_meta_boxes( $meta_boxes ) {
         'priority'   => 'high',
         'fields'     => [
             [
+                'name' => 'Mostrar Sección Exponente',
+                'id'   => 'exponente_show',
+                'type' => 'switch',
+                'std'  => 1,
+                'desc' => 'Activar para mostrar la sección de exponentes en la página.',
+            ],
+            [
                 'name' => 'Título de la Sección',
                 'id'   => 'exponente_title',
                 'type' => 'text',
@@ -580,6 +587,13 @@ function template2_register_meta_boxes( $meta_boxes ) {
         'context'    => 'normal',
         'priority'   => 'high',
         'fields'     => [
+            [
+                'name' => 'Mostrar Sección Exponente',
+                'id'   => 'exponente_show',
+                'type' => 'switch',
+                'std'  => 1,
+                'desc' => 'Activar para mostrar la sección de detalles del exponente en la página.',
+            ],
             [
                 'name'  => 'Título Principal',
                 'id'    => 'exponente_title',
@@ -989,6 +1003,13 @@ function template3_register_meta_boxes($meta_boxes) {
         'context'    => 'normal',
         'priority'   => 'high',
         'fields'     => [
+            [
+                'name' => 'Mostrar Sección Expositores',
+                'id'   => 'expositores_show',
+                'type' => 'switch',
+                'std'  => 1,
+                'desc' => 'Activar para mostrar la sección de expositores en la página.',
+            ],
             [
                 'name' => 'Título de la Sección',
                 'id'   => 'expositores_title',
