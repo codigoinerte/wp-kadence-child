@@ -75,3 +75,10 @@
 .float-whatsapp-button:is(:hover,:focus,:visited,:active){
     bottom: 30px;
 }
+
+.area-video-container{
+    background: #005f78;
+}
+.area-video-container h2{
+    color: #fff;
+}

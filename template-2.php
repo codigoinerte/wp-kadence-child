@@ -598,6 +598,9 @@ $warning_content = rwmb_meta('warning_content') ?: 'El espacio es limitado y est
   </section>
   <?php endif; ?>
 
+
+  <?php get_section_video(); ?>
+
   <!-- temario del webinar -->
   <section class="section css-fzn3wk" data-guid="b4ed6c1d-8345-a2ed-b62c-ccf6b4690e4a">
   <div class="container" id="breakdown">

@@ -392,6 +392,8 @@ if (empty($expositores_list)) {
 		</section>
 
 
+		<?php get_section_video(); ?>
+
 		<!-- Expositores Section -->
 		<?php if ($expositores_show) : ?>
 		<section class="social-proof-section" id="testimonials">

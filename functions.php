@@ -755,6 +755,36 @@ function template2_register_meta_boxes( $meta_boxes ) {
         ],
     ];
 
+    // VIDEO SECTION
+    $meta_boxes[] = [
+        'title'      => '🎥 Video Section',
+        'id'         => 'video_section_template2',
+        'post_types' => ['page'],
+        'context'    => 'normal',
+        'priority'   => 'high',
+        'fields'     => [
+            [
+                'name' => 'Título de la Sección',
+                'id'   => 'video_title_section',
+                'type' => 'text',
+                'std'  => 'Mira nuestro video',
+                'size' => 100,
+                'desc' => 'Título que aparecerá encima del video.',
+            ],
+            [
+                'name' => 'URL del Video',
+                'id'   => 'video_url',
+                'type' => 'url',
+                'std'  => '',
+                'size' => 100,
+                'desc' => 'URL del video de YouTube (formato embed). Ejemplo: https://www.youtube.com/embed/VIDEO_ID. Dejar vacío para ocultar la sección.',
+            ],
+        ],
+        'include' => [
+            'page_template' => ['template-2.php'],
+        ],
+    ];
+
     return $meta_boxes;
 }
 
@@ -1102,6 +1132,36 @@ function template3_register_meta_boxes($meta_boxes) {
         ],
     ];
 
+    // VIDEO SECTION
+    $meta_boxes[] = [
+        'title'      => '🎥 Video Section',
+        'id'         => 'video_section_template3',
+        'post_types' => ['page'],
+        'context'    => 'normal',
+        'priority'   => 'high',
+        'fields'     => [
+            [
+                'name' => 'Título de la Sección',
+                'id'   => 'video_title_section',
+                'type' => 'text',
+                'std'  => 'Mira nuestro video',
+                'size' => 100,
+                'desc' => 'Título que aparecerá encima del video.',
+            ],
+            [
+                'name' => 'URL del Video',
+                'id'   => 'video_url',
+                'type' => 'url',
+                'std'  => '',
+                'size' => 100,
+                'desc' => 'URL del video de YouTube (formato embed). Ejemplo: https://www.youtube.com/embed/VIDEO_ID. Dejar vacío para ocultar la sección.',
+            ],
+        ],
+        'include' => [
+            'page_template' => ['template-3.php'],
+        ],
+    ];
+
     return $meta_boxes;
 }
 
@@ -1280,4 +1340,47 @@ function global_social_media_register_meta_boxes( $meta_boxes ) {
     ];
 
     return $meta_boxes;
+}
+
+
+
+function get_section_video () {
+
+    // Video Section
+
+    $video_title_section = rwmb_meta('video_title_section') ?: 'Mira nuestro video';
+    $video_url = rwmb_meta('video_url') ?: '';
+
+    if(!empty($video_url)){
+        // Extraer ID de YouTube
+        preg_match('/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=))([\w-]+)/', $video_url, $matches);
+        $youtube_id = $matches[1] ?? '';
+        $video_embed_url = !empty($youtube_id) ? 'https://www.youtube.com/embed/' . $youtube_id : '';
+    } else {
+        $video_embed_url = '';
+    }
+
+  if(!empty($video_url) && !empty($video_embed_url)): ?>
+    <!-- Video Area -->
+    <section>
+        <div class="area-video-container">
+
+        <div class="container">
+            <div class="row justify-content-center">
+            <div class="col-lg-8 col-md-10">
+                <div class="video-area">
+                <h2 class="main-title fw-bold"><?php echo esc_html($video_title_section); ?></h2>
+
+                <iframe width="100%" height="400" src="<?php echo esc_url($video_embed_url); ?>" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    
+                </div>
+            </div>
+            </div>
+        </div>
+
+        </div>
+    </section>
+    <!-- Video Area -->
+  <?php endif;
+
 }

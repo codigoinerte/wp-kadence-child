@@ -42,18 +42,6 @@ $call_action_text = rwmb_meta('call_action_text') ?: 'Una vez ingrese a la comun
 $call_action_link = rwmb_meta('call_action_link') ?: $hero_whatsapp_link;
 $call_action_label = rwmb_meta('call_action_label') ?: $hero_whatsapp_label;
 
-// Video Section
-$video_title_section = rwmb_meta('video_title_section') ?: 'Mira nuestro video';
-$video_url = rwmb_meta('video_url') ?: '';
-
-if(!empty($video_url)){
-  // Extraer ID de YouTube
-  preg_match('/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=))([\w-]+)/', $video_url, $matches);
-  $youtube_id = $matches[1] ?? '';
-  $video_embed_url = !empty($youtube_id) ? 'https://www.youtube.com/embed/' . $youtube_id : '';
-} else {
-  $video_embed_url = '';
-}
 
 // Exponente Section
 $exponente_show = rwmb_meta('exponente_show');
@@ -725,28 +713,7 @@ $first_active_tab = !empty($active_tabs) ? $active_tabs[0] : 0;
   <?php endif; ?>
   <!-- End Latest News Area -->
 
-  <?php if(!empty($video_url) && !empty($video_embed_url)): ?>
-  <!-- Video Area -->
-  <section>
-    <div class="area-video-container">
-
-      <div class="container">
-        <div class="row justify-content-center">
-          <div class="col-lg-8 col-md-10">
-            <div class="video-area">
-              <h2 class="main-title fw-bold"><?php echo esc_html($video_title_section); ?></h2>
-
-              <iframe width="100%" height="400" src="<?php echo esc_url($video_embed_url); ?>" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-  
-            </div>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </section>
-  <!-- Video Area -->
-  <?php endif; ?>
+  <?php get_section_video(); ?>
 
   <section id="call-action" class="call-action">
     <div class="container">
