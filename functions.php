@@ -1369,7 +1369,7 @@ function get_section_video () {
             <div class="row justify-content-center">
             <div class="col-lg-8 col-md-10">
                 <div class="video-area">
-                <h2 class="main-title fw-bold"><?php echo esc_html($video_title_section); ?></h2>
+                <h2 class="main-title fw-bold">💻 <?php echo esc_html($video_title_section); ?></h2>
 
                 <iframe width="100%" height="400" src="<?php echo esc_url($video_embed_url); ?>" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
     
