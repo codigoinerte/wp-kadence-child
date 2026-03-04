@@ -178,7 +178,7 @@ function template1_register_meta_boxes( $meta_boxes ) {
             [
                 'name'  => 'Subtítulo',
                 'id'    => 'hero_subtitle',
-                'type'  => 'text',
+                'type'  => 'wysiwyg',
                 'std'   => 'Join Our Free Webinar to Master Your Insurance Needs',
                 'size'  => 100,
             ],

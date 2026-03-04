@@ -295,7 +295,7 @@ $first_active_tab = !empty($active_tabs) ? $active_tabs[0] : 0;
         <div class="col-lg-6 col-md-12 col-12">
           <div class="header-content">
             <h1><?php echo esc_html($hero_title); ?></h1>
-            <p><?php echo esc_html($hero_subtitle); ?></p>
+            <?php echo $hero_subtitle; ?>
             <div class="whatsapp-hero-container mt-5 m-auto">
               <a href="<?php echo esc_url($hero_whatsapp_link); ?>" class="btn whatsapp-button animate__animated animate__pulse animate__infinite infinite" target="_blank" rel="noopener">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
