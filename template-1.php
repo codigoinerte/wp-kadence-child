@@ -582,9 +582,9 @@ $first_active_tab = !empty($active_tabs) ? $active_tabs[0] : 0;
               if ($module_title === '' && empty($topics)) {
                   continue;
               }
-              $module_heading = 'Módulo ' . ($module_index + 1);
+              $module_heading = '';
               if ($module_title !== '') {
-                  $module_heading .= ': ' . $module_title;
+                  $module_heading .= $module_title;
               }
             ?>
             <div class="col-lg-4 col-md-6">
