@@ -181,18 +181,20 @@ wp_reset_postdata();
                       }
                       
                       $page_title = get_the_title();
+                      $listing_cover_title = trim((string) rwmb_meta('listing_cover_title'));
+                      $card_title = !empty($listing_cover_title) ? $listing_cover_title : $page_title;
                       $page_link = get_permalink();
                   ?>
                   <li>
                       <div class="teacher-card cursor-pointer" onClick="window.location.href='<?php echo esc_url($page_link); ?>'">
                         <figure class="card-banner img-holder has-after" style="--width: 370; --height: 370;">
-                          <img src="<?php echo esc_url($hero_image); ?>" width="370" height="370" alt="English Literature and Composition" class="img-cover">
+                          <img src="<?php echo esc_url($hero_image); ?>" width="370" height="370" alt="<?php echo esc_attr($card_title); ?>" class="img-cover">
                         </figure>
                         <div class="card-content">
                                                     
                           <h3 class="h3">
                             <a href="<?php echo esc_url($page_link); ?>" class="card-title capitalize">
-                              <?php echo esc_html(strtolower($page_title)); ?>
+                              <?php echo esc_html($card_title); ?>
                             </a>
                           </h3>
                           

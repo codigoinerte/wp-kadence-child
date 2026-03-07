@@ -209,12 +209,34 @@ function template1_register_meta_boxes( $meta_boxes ) {
                 'type'            => 'image_advanced',
                 'max_file_uploads' => 1,
             ],
+        ],
+        'include' => [
+            'page_template' => ['template-1.php'],
+        ],
+    ];
+
+    // PORTADA SECTION
+    $meta_boxes[] = [
+        'title'      => '🖼️ Portada (Listado Home)',
+        'id'         => 'cover_section_template1',
+        'post_types' => ['page'],
+        'context'    => 'normal',
+        'priority'   => 'high',
+        'fields'     => [
             [
                 'name'            => 'Imagen Portada',
                 'id'              => 'listing_cover_image',
                 'type'            => 'image_advanced',
                 'max_file_uploads' => 1,
                 'desc'            => 'Imagen usada en el listado de landing pages/cursos del template Home.',
+            ],
+            [
+                'name'        => 'Título de portada',
+                'id'          => 'listing_cover_title',
+                'type'        => 'text',
+                'size'        => 100,
+                'placeholder' => 'Si se deja vacío, se usa el título original de la página.',
+                'desc'        => 'Título personalizado para la tarjeta del listado en Home.',
             ],
         ],
         'include' => [
@@ -524,13 +546,6 @@ function template2_register_meta_boxes( $meta_boxes ) {
                 'max_file_uploads' => 1,
             ],
             [
-                'name'            => 'Imagen Portada',
-                'id'              => 'listing_cover_image',
-                'type'            => 'image_advanced',
-                'max_file_uploads' => 1,
-                'desc'            => 'Imagen usada en el listado de landing pages/cursos del template Home.',
-            ],
-            [
                 'name' => 'Texto del Botón Principal',
                 'id'   => 'hero_button_label',
                 'type' => 'text',
@@ -550,6 +565,35 @@ function template2_register_meta_boxes( $meta_boxes ) {
                 'type'  => 'textarea',
                 'rows'  => 3,
                 'std'   => 'Haga clic en el botón ahora para unirse a nosotros en este seminario web en vivo gratuito este miércoles para propietarios de pequeñas empresas, emprendedores y proveedores de servicios',
+            ],
+        ],
+        'include' => [
+            'page_template' => ['template-2.php'],
+        ],
+    ];
+
+    // PORTADA SECTION
+    $meta_boxes[] = [
+        'title'      => '🖼️ Portada (Listado Home)',
+        'id'         => 'cover_section_template2',
+        'post_types' => ['page'],
+        'context'    => 'normal',
+        'priority'   => 'high',
+        'fields'     => [
+            [
+                'name'            => 'Imagen Portada',
+                'id'              => 'listing_cover_image',
+                'type'            => 'image_advanced',
+                'max_file_uploads' => 1,
+                'desc'            => 'Imagen usada en el listado de landing pages/cursos del template Home.',
+            ],
+            [
+                'name'        => 'Título de portada',
+                'id'          => 'listing_cover_title',
+                'type'        => 'text',
+                'size'        => 100,
+                'placeholder' => 'Si se deja vacío, se usa el título original de la página.',
+                'desc'        => 'Título personalizado para la tarjeta del listado en Home.',
             ],
         ],
         'include' => [
@@ -869,6 +913,28 @@ function template3_register_meta_boxes($meta_boxes) {
                 'desc'             => 'La imagen principal del hero (dashboard/tablet).',
             ],
             [
+                'name' => 'Texto Alternativo de la Imagen',
+                'id'   => 'hero_image_alt',
+                'type' => 'text',
+                'std'  => 'Mintly Dashboard on Tablet',
+                'size' => 60,
+                'desc' => 'Texto alternativo para accesibilidad (atributo alt).',
+            ],
+        ],
+        'include' => [
+            'page_template' => ['template-3.php'],
+        ],
+    ];
+
+    // PORTADA SECTION
+    $meta_boxes[] = [
+        'title'      => '🖼️ Portada (Listado Home)',
+        'id'         => 'cover_section_template3',
+        'post_types' => ['page'],
+        'context'    => 'normal',
+        'priority'   => 'high',
+        'fields'     => [
+            [
                 'name'             => 'Imagen Portada',
                 'id'               => 'listing_cover_image',
                 'type'             => 'image_advanced',
@@ -876,12 +942,12 @@ function template3_register_meta_boxes($meta_boxes) {
                 'desc'             => 'Imagen usada en el listado de landing pages/cursos del template Home.',
             ],
             [
-                'name' => 'Texto Alternativo de la Imagen',
-                'id'   => 'hero_image_alt',
-                'type' => 'text',
-                'std'  => 'Mintly Dashboard on Tablet',
-                'size' => 60,
-                'desc' => 'Texto alternativo para accesibilidad (atributo alt).',
+                'name'        => 'Título de portada',
+                'id'          => 'listing_cover_title',
+                'type'        => 'text',
+                'size'        => 100,
+                'placeholder' => 'Si se deja vacío, se usa el título original de la página.',
+                'desc'        => 'Título personalizado para la tarjeta del listado en Home.',
             ],
         ],
         'include' => [
