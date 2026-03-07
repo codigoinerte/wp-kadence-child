@@ -209,6 +209,13 @@ function template1_register_meta_boxes( $meta_boxes ) {
                 'type'            => 'image_advanced',
                 'max_file_uploads' => 1,
             ],
+            [
+                'name'            => 'Imagen Portada',
+                'id'              => 'listing_cover_image',
+                'type'            => 'image_advanced',
+                'max_file_uploads' => 1,
+                'desc'            => 'Imagen usada en el listado de landing pages/cursos del template Home.',
+            ],
         ],
         'include' => [
             'page_template' => ['template-1.php'],
@@ -515,6 +522,13 @@ function template2_register_meta_boxes( $meta_boxes ) {
                 'id'              => 'hero_image',
                 'type'            => 'image_advanced',
                 'max_file_uploads' => 1,
+            ],
+            [
+                'name'            => 'Imagen Portada',
+                'id'              => 'listing_cover_image',
+                'type'            => 'image_advanced',
+                'max_file_uploads' => 1,
+                'desc'            => 'Imagen usada en el listado de landing pages/cursos del template Home.',
             ],
             [
                 'name' => 'Texto del Botón Principal',
@@ -853,6 +867,13 @@ function template3_register_meta_boxes($meta_boxes) {
                 'type'             => 'image_advanced',
                 'max_file_uploads' => 1,
                 'desc'             => 'La imagen principal del hero (dashboard/tablet).',
+            ],
+            [
+                'name'             => 'Imagen Portada',
+                'id'               => 'listing_cover_image',
+                'type'             => 'image_advanced',
+                'max_file_uploads' => 1,
+                'desc'             => 'Imagen usada en el listado de landing pages/cursos del template Home.',
             ],
             [
                 'name' => 'Texto Alternativo de la Imagen',

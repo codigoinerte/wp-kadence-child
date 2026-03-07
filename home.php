@@ -159,8 +159,11 @@ wp_reset_postdata();
                   <?php
                     while ($landing_pages->have_posts()) : $landing_pages->the_post();
                       
-                      // Obtener la imagen del hero (Meta Box)
-                      $hero_image_data = rwmb_meta('hero_image', ['size' => 'full']);
+                      // Prioridad: Imagen Portada -> Imagen Hero -> primera imagen del contenido -> imagen por defecto
+                      $hero_image_data = rwmb_meta('listing_cover_image', ['size' => 'full']);
+                      if (empty($hero_image_data)) {
+                        $hero_image_data = rwmb_meta('hero_image', ['size' => 'full']);
+                      }
                       $hero_image = '';
                       
                       if (!empty($hero_image_data)) {
