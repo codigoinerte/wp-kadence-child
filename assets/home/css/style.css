@@ -1064,3 +1064,10 @@ padding-block: 5px;
   z-index: 1;
 }
 }
+
+.cursor-pointer{
+  cursor: pointer;
+}
+.capitalize {
+  text-transform: capitalize;
+}

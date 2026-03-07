@@ -181,17 +181,22 @@ wp_reset_postdata();
                       $page_link = get_permalink();
                   ?>
                   <li>
-                    <div class="course-card">
-                      <figure class="card-banner img-holder" style="--width: 370; --height: 220;">
-                        <img src="<?php echo esc_url($hero_image); ?>" width="370" height="220" alt="<?php echo esc_attr($page_title); ?>" class="img-cover" loading="lazy">
-                      </figure>
-                      <div class="card-content">
-                        <h3 class="h3">
-                          <a href="<?php echo esc_url($page_link); ?>" class="card-title"><?php echo esc_html($page_title); ?></a>
-                        </h3>
+                      <div class="teacher-card cursor-pointer" onClick="window.location.href='<?php echo esc_url($page_link); ?>'">
+                        <figure class="card-banner img-holder has-after" style="--width: 370; --height: 370;">
+                          <img src="<?php echo esc_url($hero_image); ?>" width="370" height="370" alt="English Literature and Composition" class="img-cover">
+                        </figure>
+                        <div class="card-content">
+                                                    
+                          <h3 class="h3">
+                            <a href="<?php echo esc_url($page_link); ?>" class="card-title capitalize">
+                              <?php echo esc_html(strtolower($page_title)); ?>
+                            </a>
+                          </h3>
+                          
+                        </div>
                       </div>
-                    </div>
                   </li>
+                  
                   <?php
                     endwhile;
                     wp_reset_postdata();
@@ -208,7 +213,7 @@ wp_reset_postdata();
             wp_reset_postdata();
             ?>
             <!-- Our Teachers -->
-            <section class="section teacher has-bg-image" id="teacher" aria-label="teacher" style="background-image: url('<?php echo get_stylesheet_directory_uri(); ?>/assets/home/img/n18.jpg');">
+            <section class="section teacher has-bg-image" id="teacher" aria-label="teacher" style="background-image: url('<?php echo get_stylesheet_directory_uri(); ?>/assets/home/img/n18.jpg'); display:none;">
             <div class="container">
             <p class="section-subtitle">Nuestros ponentes</p>
             <h2 class="h2 section-title">Conozca a Nuestros Instructores Expertos</h2>
