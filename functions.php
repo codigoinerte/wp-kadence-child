@@ -138,6 +138,315 @@ function kadence_child_add_resource_hints( $urls, $relation_type ) {
 add_filter( 'wp_resource_hints', 'kadence_child_add_resource_hints', 10, 2 );
 
 // ============================================
+// CATEGORIAS DE PORTADA
+// ============================================
+
+function kadence_child_get_default_cover_categories() {
+    return [
+        [
+            'label' => 'Curso',
+            'value' => 'curso',
+            'color' => '#1f7a8c',
+        ],
+        [
+            'label' => 'Webinar',
+            'value' => 'webinar',
+            'color' => '#d97706',
+        ],
+        [
+            'label' => 'Taller',
+            'value' => 'taller',
+            'color' => '#7c3aed',
+        ],
+    ];
+}
+
+function kadence_child_normalize_cover_category_value( $value, $label = '' ) {
+    $candidate = sanitize_title( wp_unslash( (string) $value ) );
+
+    if ( '' === $candidate && '' !== $label ) {
+        $candidate = sanitize_title( wp_unslash( (string) $label ) );
+    }
+
+    return $candidate;
+}
+
+function kadence_child_get_cover_categories() {
+    $categories = get_option( 'kadence_child_cover_categories', [] );
+
+    if ( ! is_array( $categories ) || empty( $categories ) ) {
+        return kadence_child_get_default_cover_categories();
+    }
+
+    $normalized = [];
+
+    foreach ( $categories as $category ) {
+        if ( ! is_array( $category ) ) {
+            continue;
+        }
+
+        $label = sanitize_text_field( $category['label'] ?? '' );
+        $value = kadence_child_normalize_cover_category_value( $category['value'] ?? '', $label );
+        $color = sanitize_hex_color( $category['color'] ?? '' );
+
+        if ( '' === $label || '' === $value ) {
+            continue;
+        }
+
+        $normalized[] = [
+            'label' => $label,
+            'value' => $value,
+            'color' => $color ?: '#1f7a8c',
+        ];
+    }
+
+    return ! empty( $normalized ) ? $normalized : kadence_child_get_default_cover_categories();
+}
+
+function kadence_child_get_cover_category_options() {
+    $options = [];
+
+    foreach ( kadence_child_get_cover_categories() as $category ) {
+        $options[ $category['value'] ] = $category['label'];
+    }
+
+    return $options;
+}
+
+function kadence_child_get_cover_category( $value ) {
+    $value = sanitize_title( (string) $value );
+
+    if ( '' === $value ) {
+        return null;
+    }
+
+    foreach ( kadence_child_get_cover_categories() as $category ) {
+        if ( $category['value'] === $value ) {
+            return $category;
+        }
+    }
+
+    return null;
+}
+
+function kadence_child_get_contrast_text_color( $hex_color ) {
+    $hex_color = sanitize_hex_color( $hex_color );
+
+    if ( empty( $hex_color ) ) {
+        return '#ffffff';
+    }
+
+    $color = ltrim( $hex_color, '#' );
+
+    if ( 3 === strlen( $color ) ) {
+        $color = $color[0] . $color[0] . $color[1] . $color[1] . $color[2] . $color[2];
+    }
+
+    $red = hexdec( substr( $color, 0, 2 ) );
+    $green = hexdec( substr( $color, 2, 2 ) );
+    $blue = hexdec( substr( $color, 4, 2 ) );
+    $brightness = ( ( $red * 299 ) + ( $green * 587 ) + ( $blue * 114 ) ) / 1000;
+
+    return $brightness > 155 ? '#111827' : '#ffffff';
+}
+
+function kadence_child_sanitize_cover_categories( $raw_categories ) {
+    if ( ! is_array( $raw_categories ) ) {
+        return kadence_child_get_default_cover_categories();
+    }
+
+    $sanitized = [];
+    $used_values = [];
+
+    foreach ( $raw_categories as $category ) {
+        if ( ! is_array( $category ) ) {
+            continue;
+        }
+
+        $label = sanitize_text_field( $category['label'] ?? '' );
+        $value = kadence_child_normalize_cover_category_value( $category['value'] ?? '', $label );
+        $color = sanitize_hex_color( $category['color'] ?? '' );
+
+        if ( '' === $label || '' === $value || isset( $used_values[ $value ] ) ) {
+            continue;
+        }
+
+        $used_values[ $value ] = true;
+
+        $sanitized[] = [
+            'label' => $label,
+            'value' => $value,
+            'color' => $color ?: '#1f7a8c',
+        ];
+    }
+
+    return ! empty( $sanitized ) ? array_values( $sanitized ) : kadence_child_get_default_cover_categories();
+}
+
+function kadence_child_register_cover_categories_menu() {
+    add_theme_page(
+        'Categorias de Portada',
+        'Categorias de Portada',
+        'manage_options',
+        'kadence-child-cover-categories',
+        'kadence_child_render_cover_categories_page'
+    );
+}
+add_action( 'admin_menu', 'kadence_child_register_cover_categories_menu' );
+
+function kadence_child_handle_cover_categories_save() {
+    if ( ! is_admin() || ! current_user_can( 'manage_options' ) ) {
+        return;
+    }
+
+    if ( ! isset( $_POST['kadence_child_cover_categories_nonce'] ) ) {
+        return;
+    }
+
+    if ( ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['kadence_child_cover_categories_nonce'] ) ), 'kadence_child_save_cover_categories' ) ) {
+        return;
+    }
+
+    $screen_page = isset( $_GET['page'] ) ? sanitize_key( wp_unslash( $_GET['page'] ) ) : '';
+
+    if ( 'kadence-child-cover-categories' !== $screen_page ) {
+        return;
+    }
+
+    $categories = kadence_child_sanitize_cover_categories( wp_unslash( $_POST['cover_categories'] ?? [] ) );
+
+    update_option( 'kadence_child_cover_categories', $categories );
+
+    wp_safe_redirect(
+        add_query_arg(
+            [
+                'page' => 'kadence-child-cover-categories',
+                'updated' => 'true',
+            ],
+            admin_url( 'themes.php' )
+        )
+    );
+    exit;
+}
+add_action( 'admin_init', 'kadence_child_handle_cover_categories_save' );
+
+function kadence_child_render_cover_categories_page() {
+    if ( ! current_user_can( 'manage_options' ) ) {
+        return;
+    }
+
+    $categories = kadence_child_get_cover_categories();
+    ?>
+    <div class="wrap">
+        <h1>Categorias de Portada</h1>
+        <p>Administra las categorias disponibles para el campo Categoria dentro de Portada section en los templates 1, 2 y 3.</p>
+        <?php if ( isset( $_GET['updated'] ) && 'true' === sanitize_text_field( wp_unslash( $_GET['updated'] ) ) ) : ?>
+            <div class="notice notice-success is-dismissible">
+                <p>Las categorias de portada fueron actualizadas.</p>
+            </div>
+        <?php endif; ?>
+
+        <form method="post" action="">
+            <?php wp_nonce_field( 'kadence_child_save_cover_categories', 'kadence_child_cover_categories_nonce' ); ?>
+            <table class="widefat striped" id="kadence-child-cover-categories-table">
+                <thead>
+                    <tr>
+                        <th style="width: 32%;">Label</th>
+                        <th style="width: 28%;">Value</th>
+                        <th style="width: 20%;">Color</th>
+                        <th style="width: 20%;">Accion</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ( $categories as $index => $category ) : ?>
+                        <tr>
+                            <td>
+                                <input type="text" class="regular-text" name="cover_categories[<?php echo esc_attr( $index ); ?>][label]" value="<?php echo esc_attr( $category['label'] ); ?>" placeholder="Ej: Webinar" required>
+                            </td>
+                            <td>
+                                <input type="text" class="regular-text" name="cover_categories[<?php echo esc_attr( $index ); ?>][value]" value="<?php echo esc_attr( $category['value'] ); ?>" placeholder="ej: webinar">
+                                <p class="description">Se normaliza como slug. Si lo dejas vacio, se genera desde el label.</p>
+                            </td>
+                            <td>
+                                <input type="color" name="cover_categories[<?php echo esc_attr( $index ); ?>][color]" value="<?php echo esc_attr( $category['color'] ); ?>">
+                            </td>
+                            <td>
+                                <button type="button" class="button kadence-child-remove-category">Eliminar</button>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+
+            <p style="margin-top: 16px;">
+                <button type="button" class="button" id="kadence-child-add-category">+ Agregar categoria</button>
+            </p>
+
+            <?php submit_button( 'Guardar categorias' ); ?>
+        </form>
+    </div>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const tableBody = document.querySelector('#kadence-child-cover-categories-table tbody');
+        const addButton = document.getElementById('kadence-child-add-category');
+
+        if (!tableBody || !addButton) {
+            return;
+        }
+
+        const createRow = function (index) {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>
+                    <input type="text" class="regular-text" name="cover_categories[${index}][label]" value="" placeholder="Ej: Seminario" required>
+                </td>
+                <td>
+                    <input type="text" class="regular-text" name="cover_categories[${index}][value]" value="" placeholder="ej: seminario">
+                    <p class="description">Se normaliza como slug. Si lo dejas vacio, se genera desde el label.</p>
+                </td>
+                <td>
+                    <input type="color" name="cover_categories[${index}][color]" value="#1f7a8c">
+                </td>
+                <td>
+                    <button type="button" class="button kadence-child-remove-category">Eliminar</button>
+                </td>
+            `;
+
+            return row;
+        };
+
+        addButton.addEventListener('click', function () {
+            tableBody.appendChild(createRow(tableBody.querySelectorAll('tr').length));
+        });
+
+        tableBody.addEventListener('click', function (event) {
+            if (!event.target.classList.contains('kadence-child-remove-category')) {
+                return;
+            }
+
+            const rows = tableBody.querySelectorAll('tr');
+
+            if (rows.length === 1) {
+                rows[0].querySelectorAll('input').forEach(function (input) {
+                    if (input.type === 'color') {
+                        input.value = '#1f7a8c';
+                    } else {
+                        input.value = '';
+                    }
+                });
+
+                return;
+            }
+
+            event.target.closest('tr').remove();
+        });
+    });
+    </script>
+    <?php
+}
+
+// ============================================
 // META BOX - TEMPLATE 1 CUSTOM FIELDS
 // ============================================
 
@@ -237,6 +546,17 @@ function template1_register_meta_boxes( $meta_boxes ) {
                 'size'        => 100,
                 'placeholder' => 'Si se deja vacío, se usa el título original de la página.',
                 'desc'        => 'Título personalizado para la tarjeta del listado en Home.',
+            ],
+            [
+                'name'        => 'Categoria',
+                'id'          => 'listing_cover_category',
+                'type'        => 'select',
+                'options'     => kadence_child_get_cover_category_options(),
+                'placeholder' => 'Selecciona una categoria',
+                'desc'        => sprintf(
+                    'Las opciones se administran desde Apariencia > <a href="%s">Categorias de Portada</a>.',
+                    esc_url( admin_url( 'themes.php?page=kadence-child-cover-categories' ) )
+                ),
             ],
         ],
         'include' => [
@@ -595,6 +915,17 @@ function template2_register_meta_boxes( $meta_boxes ) {
                 'placeholder' => 'Si se deja vacío, se usa el título original de la página.',
                 'desc'        => 'Título personalizado para la tarjeta del listado en Home.',
             ],
+            [
+                'name'        => 'Categoria',
+                'id'          => 'listing_cover_category',
+                'type'        => 'select',
+                'options'     => kadence_child_get_cover_category_options(),
+                'placeholder' => 'Selecciona una categoria',
+                'desc'        => sprintf(
+                    'Las opciones se administran desde Apariencia > <a href="%s">Categorias de Portada</a>.',
+                    esc_url( admin_url( 'themes.php?page=kadence-child-cover-categories' ) )
+                ),
+            ],
         ],
         'include' => [
             'page_template' => ['template-2.php'],
@@ -948,6 +1279,17 @@ function template3_register_meta_boxes($meta_boxes) {
                 'size'        => 100,
                 'placeholder' => 'Si se deja vacío, se usa el título original de la página.',
                 'desc'        => 'Título personalizado para la tarjeta del listado en Home.',
+            ],
+            [
+                'name'        => 'Categoria',
+                'id'          => 'listing_cover_category',
+                'type'        => 'select',
+                'options'     => kadence_child_get_cover_category_options(),
+                'placeholder' => 'Selecciona una categoria',
+                'desc'        => sprintf(
+                    'Las opciones se administran desde Apariencia > <a href="%s">Categorias de Portada</a>.',
+                    esc_url( admin_url( 'themes.php?page=kadence-child-cover-categories' ) )
+                ),
             ],
         ],
         'include' => [
