@@ -161,6 +161,18 @@ function kadence_child_get_default_cover_categories() {
     ];
 }
 
+function kadence_child_get_empty_cover_category() {
+    return [
+        'label' => '',
+        'value' => '',
+        'color' => '#1f7a8c',
+    ];
+}
+
+function kadence_child_has_saved_cover_categories() {
+    return null !== get_option( 'kadence_child_cover_categories', null );
+}
+
 function kadence_child_normalize_cover_category_value( $value, $label = '' ) {
     $candidate = sanitize_title( wp_unslash( (string) $value ) );
 
@@ -172,10 +184,14 @@ function kadence_child_normalize_cover_category_value( $value, $label = '' ) {
 }
 
 function kadence_child_get_cover_categories() {
-    $categories = get_option( 'kadence_child_cover_categories', [] );
+    $categories = get_option( 'kadence_child_cover_categories', null );
 
-    if ( ! is_array( $categories ) || empty( $categories ) ) {
+    if ( null === $categories ) {
         return kadence_child_get_default_cover_categories();
+    }
+
+    if ( ! is_array( $categories ) ) {
+        return [];
     }
 
     $normalized = [];
@@ -200,7 +216,7 @@ function kadence_child_get_cover_categories() {
         ];
     }
 
-    return ! empty( $normalized ) ? $normalized : kadence_child_get_default_cover_categories();
+    return array_values( $normalized );
 }
 
 function kadence_child_get_cover_category_options() {
@@ -252,7 +268,7 @@ function kadence_child_get_contrast_text_color( $hex_color ) {
 
 function kadence_child_sanitize_cover_categories( $raw_categories ) {
     if ( ! is_array( $raw_categories ) ) {
-        return kadence_child_get_default_cover_categories();
+        return [];
     }
 
     $sanitized = [];
@@ -280,7 +296,7 @@ function kadence_child_sanitize_cover_categories( $raw_categories ) {
         ];
     }
 
-    return ! empty( $sanitized ) ? array_values( $sanitized ) : kadence_child_get_default_cover_categories();
+    return array_values( $sanitized );
 }
 
 function kadence_child_register_cover_categories_menu() {
@@ -336,13 +352,20 @@ function kadence_child_render_cover_categories_page() {
     }
 
     $categories = kadence_child_get_cover_categories();
+    $categories_for_form = ! empty( $categories ) ? $categories : [ kadence_child_get_empty_cover_category() ];
     ?>
     <div class="wrap">
         <h1>Categorias de Portada</h1>
         <p>Administra las categorias disponibles para el campo Categoria dentro de Portada section en los templates 1, 2 y 3.</p>
+        <p>Puedes crear, editar y eliminar categorias libremente. Si dejas la lista vacia, el selector de categoria no mostrara opciones hasta que agregues nuevas.</p>
         <?php if ( isset( $_GET['updated'] ) && 'true' === sanitize_text_field( wp_unslash( $_GET['updated'] ) ) ) : ?>
             <div class="notice notice-success is-dismissible">
                 <p>Las categorias de portada fueron actualizadas.</p>
+            </div>
+        <?php endif; ?>
+        <?php if ( empty( $categories ) && kadence_child_has_saved_cover_categories() ) : ?>
+            <div class="notice notice-warning inline">
+                <p>No hay categorias activas. Usa el boton Agregar categoria para crear nuevas opciones.</p>
             </div>
         <?php endif; ?>
 
@@ -358,7 +381,7 @@ function kadence_child_render_cover_categories_page() {
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach ( $categories as $index => $category ) : ?>
+                    <?php foreach ( $categories_for_form as $index => $category ) : ?>
                         <tr>
                             <td>
                                 <input type="text" class="regular-text" name="cover_categories[<?php echo esc_attr( $index ); ?>][label]" value="<?php echo esc_attr( $category['label'] ); ?>" placeholder="Ej: Webinar" required>
@@ -395,6 +418,30 @@ function kadence_child_render_cover_categories_page() {
             return;
         }
 
+        const getNextIndex = function () {
+            return tableBody.querySelectorAll('tr:not(.kadence-child-empty-state)').length;
+        };
+
+        const buildEmptyState = function () {
+            const row = document.createElement('tr');
+            row.className = 'kadence-child-empty-state';
+            row.innerHTML = '<td colspan="4">No hay categorias configuradas. Haz clic en "+ Agregar categoria" para crear una.</td>';
+            return row;
+        };
+
+        const refreshEmptyState = function () {
+            const rows = tableBody.querySelectorAll('tr:not(.kadence-child-empty-state)');
+            const emptyState = tableBody.querySelector('.kadence-child-empty-state');
+
+            if (rows.length === 0 && !emptyState) {
+                tableBody.appendChild(buildEmptyState());
+            }
+
+            if (rows.length > 0 && emptyState) {
+                emptyState.remove();
+            }
+        };
+
         const createRow = function (index) {
             const row = document.createElement('tr');
             row.innerHTML = `
@@ -417,7 +464,13 @@ function kadence_child_render_cover_categories_page() {
         };
 
         addButton.addEventListener('click', function () {
-            tableBody.appendChild(createRow(tableBody.querySelectorAll('tr').length));
+            const emptyState = tableBody.querySelector('.kadence-child-empty-state');
+
+            if (emptyState) {
+                emptyState.remove();
+            }
+
+            tableBody.appendChild(createRow(getNextIndex()));
         });
 
         tableBody.addEventListener('click', function (event) {
@@ -425,22 +478,17 @@ function kadence_child_render_cover_categories_page() {
                 return;
             }
 
-            const rows = tableBody.querySelectorAll('tr');
+            const row = event.target.closest('tr');
 
-            if (rows.length === 1) {
-                rows[0].querySelectorAll('input').forEach(function (input) {
-                    if (input.type === 'color') {
-                        input.value = '#1f7a8c';
-                    } else {
-                        input.value = '';
-                    }
-                });
-
+            if (!row) {
                 return;
             }
 
-            event.target.closest('tr').remove();
+            row.remove();
+            refreshEmptyState();
         });
+
+        refreshEmptyState();
     });
     </script>
     <?php
