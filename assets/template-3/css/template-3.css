@@ -48,6 +48,23 @@ div:has(.whatsapp-benefits-button){
     }
 }
 
+@media (max-width: 640px) {
+    .hero-heading {
+        font-size: clamp(24px, 7vw, 36px);
+    }
+
+    .hero-visual-wrapper {
+        max-width: 280px;
+        margin: 0 auto;
+    }
+
+    .hero-main-image {
+        max-height: 260px;
+        object-fit: cover;
+        object-position: top center;
+    }
+}
+
 .footer-bottom-wrapper{
     justify-content: center;
     align-items: center;
